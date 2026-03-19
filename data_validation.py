@@ -21,7 +21,7 @@ def get_run_migration(uid, api_key=None):
     return run
 
 
-@task
+@task(retries=2, retry_delay_seconds=10)
 def read_stream(run, stream):
     stream_data = run[stream].read()
     return stream_data
